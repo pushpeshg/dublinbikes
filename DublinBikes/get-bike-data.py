@@ -9,7 +9,7 @@ import boto3
 from _datetime import date
 
 # Firehose stream name
-deliveryStreamName = "dublin-bikes"
+deliveryStreamName = "dubln-bikes"
 
 # Dublin Bike Key
 apiKey = "c8c008f4c75dfe0a49a57c595ea90935d872cdc5"
@@ -57,7 +57,7 @@ def single_station_info(station_no):
 
 
 # Setup Firehose
-client = boto3.client('firehose')
+client = boto3.client('firehose', region_name='us-east-1')
 
 lists = stations_list(file_name)
 
@@ -65,14 +65,13 @@ for i in lists:
     try:
         output = single_station_info(i)
         response = client.put_record(
-            DeliveryStreamName='deliveryStreamName',
+            DeliveryStreamName=deliveryStreamName,
             Record={
-                'Data': output + "\n"
+                'Data': str(output) + "\n"
             }
         )
         print(response)
-    except Exception:
-        print("test")
-        logginpass
-
+    except Exception as e:
+        print(e)
+        pass
 
