@@ -1,5 +1,5 @@
 # Author     : Pushpesh Gupta
-# Description: This script streams Twitter data into Kinesis Firehose. Used for Onboarding, Phase 5 exercise.
+
 
 # Import modules
 import requests
